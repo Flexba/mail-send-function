@@ -11,7 +11,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: mail-send-function # set this to your function app name on Azure
-  PACKAGE_DIRECTORY: '.' # set this to the directory which contains pom.xml file
+  PACKAGE_DIRECTORY: './build/azure-functions/mail-send-function' # set this to the directory which contains pom.xml file
   JAVA_VERSION: '17' # set this to the java version to use
 
 jobs:
@@ -26,12 +26,10 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
 
-      - name: 'Restore Project Dependencies Using Mvn'
+      - name: 'Build Project using Gradle'
         shell: pwsh
         run: |
-          pushd './${{ env.PACKAGE_DIRECTORY }}'
-          gradle build
-          popd
+          gradle azureFunctionsPackage
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
         id: fa
@@ -40,4 +38,3 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_27EA77116D62465D9C6B5B8AC016DF1A }}
           package: '${{ env.PACKAGE_DIRECTORY }}'
-          respect-pom-xml: true

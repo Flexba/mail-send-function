@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20fefcbf-7b23-4e7f-b08f-fd1389bb0088" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/main_mail-send-function.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/main_mail-send-function.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/at/flexba/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/at/flexba/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +43,7 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="mail-send-function" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+                <item name="azurefunctions" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -83,6 +82,11 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "JSON"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -90,8 +94,115 @@
       <recent name="C:\Users\flexb\Documents\source\mail-send-function" />
     </key>
   </component>
-  <component name="RunManager" selected="Azure Functions.Unnamed">
-    <configuration name="Unnamed" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions" nameIsGenerated="true">
+  <component name="RunManager" selected="Gradle.mail-send-function [azureFunctionsPackage]">
+    <configuration name="Deploy" type="AZURE_FUNCTION_SUPPORT" factoryName="Deploy Functions">
+      <FunctionDeployModel>
+        <option name="appSettingsHash" value="A964213B18AD01AA6E0CB4EE194BBF5C" />
+        <option name="appSettingsKey" value="9ae1b96a-e146-4d25-b216-60670844cd61" />
+        <option name="deploymentStagingDirectoryPath" />
+        <option name="functionAppConfig">
+          <FunctionAppConfig>
+            <option name="appSettingsToRemove">
+              <set />
+            </option>
+            <option name="application" />
+            <option name="deploymentSlot" />
+            <option name="monitorConfig">
+              <MonitorConfig>
+                <option name="applicationInsightsConfig" />
+                <option name="diagnosticConfig">
+                  <DiagnosticConfig>
+                    <option name="applicationLogLevel">
+                      <LogLevel>
+                        <option name="value" value="Error" />
+                      </LogLevel>
+                    </option>
+                    <option name="enableApplicationLog" value="true" />
+                    <option name="enableDetailedErrorMessage" value="false" />
+                    <option name="enableFailedRequestTracing" value="false" />
+                    <option name="enableWebServerLogging" value="true" />
+                    <option name="webServerLogQuota" value="35" />
+                    <option name="webServerRetentionPeriod" value="0" />
+                  </DiagnosticConfig>
+                </option>
+              </MonitorConfig>
+            </option>
+            <option name="name" value="mail-send-function" />
+            <option name="pricingTier" />
+            <option name="region">
+              <Region>
+                <option name="abbreviation" value="WEU" />
+                <option name="label" value="West Europe" />
+                <option name="name" value="westeurope" />
+              </Region>
+            </option>
+            <option name="resourceGroup">
+              <ResourceGroupConfig>
+                <option name="name" value="application-dev-rg" />
+                <option name="region">
+                  <Region>
+                    <option name="abbreviation" value="WEU" />
+                    <option name="label" value="West Europe" />
+                    <option name="name" value="westeurope" />
+                  </Region>
+                </option>
+                <option name="subscriptionId" value="610d8435-17dd-405d-bfe3-8b5dd22ac013" />
+              </ResourceGroupConfig>
+            </option>
+            <option name="resourceId" value="/subscriptions/610d8435-17dd-405d-bfe3-8b5dd22ac013/resourceGroups/application-dev-rg/providers/Microsoft.Web/sites/mail-send-function" />
+            <option name="runtime">
+              <Runtime>
+                <option name="javaVersion">
+                  <JavaVersion>
+                    <option name="value" value="17" />
+                  </JavaVersion>
+                </option>
+                <option name="operatingSystem" value="Windows" />
+                <option name="webContainer">
+                  <WebContainer>
+                    <option name="value" value="&lt;null&gt;" />
+                  </WebContainer>
+                </option>
+              </Runtime>
+            </option>
+            <option name="servicePlan">
+              <AppServicePlanConfig>
+                <option name="name" value="ASP-applicationdevrg-8661" />
+                <option name="os" value="Windows" />
+                <option name="pricingTier">
+                  <PricingTier>
+                    <option name="size" value="Y1" />
+                    <option name="tier" value="Dynamic" />
+                  </PricingTier>
+                </option>
+                <option name="region">
+                  <Region>
+                    <option name="abbreviation" value="WEU" />
+                    <option name="label" value="West Europe" />
+                    <option name="name" value="westeurope" />
+                  </Region>
+                </option>
+                <option name="resourceGroupName" value="application-dev-rg" />
+                <option name="subscriptionId" value="610d8435-17dd-405d-bfe3-8b5dd22ac013" />
+              </AppServicePlanConfig>
+            </option>
+            <option name="subscription">
+              <Subscription>
+                <option name="id" value="610d8435-17dd-405d-bfe3-8b5dd22ac013" />
+                <option name="name" />
+                <option name="selected" value="false" />
+                <option name="tenantId" />
+              </Subscription>
+            </option>
+          </FunctionAppConfig>
+        </option>
+        <option name="moduleName" value="mail-send-function.main" />
+      </FunctionDeployModel>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Run" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
       <option name="appName" />
       <option name="appServicePlanName" />
       <option name="appServicePlanResourceGroup" />
@@ -153,10 +264,61 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="mail-send-function [azureFunctionsPackage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="azureFunctionsPackage" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="mail-send-function [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Azure Functions.Unnamed" />
+      <item itemvalue="Azure Functions.Run" />
+      <item itemvalue="Azure Functions.Deploy" />
       <item itemvalue="Gradle.Run Locally" />
+      <item itemvalue="Gradle.mail-send-function [azureFunctionsPackage]" />
+      <item itemvalue="Gradle.mail-send-function [build]" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.mail-send-function [azureFunctionsPackage]" />
+        <item itemvalue="Gradle.mail-send-function [build]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -167,7 +329,7 @@
       <option name="presentableId" value="Default" />
       <updated>1675368806289</updated>
       <workItem from="1675368807493" duration="2302000" />
-      <workItem from="1675371144266" duration="862000" />
+      <workItem from="1675371144266" duration="5088000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Code Commit">
       <created>1675371890416</created>
@@ -176,7 +338,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675371890416</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fix Deployment">
+      <created>1675373738046</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1675373738046</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,7 +353,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Code Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial Code Commit" />
+    <MESSAGE value="Fix Deployment" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Deployment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
