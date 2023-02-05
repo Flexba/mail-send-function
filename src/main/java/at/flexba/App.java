@@ -3,14 +3,20 @@
  */
 package at.flexba;
 
+import com.azure.communication.email.EmailClient;
+import com.azure.communication.email.EmailClientBuilder;
+import com.azure.communication.email.models.*;
 import com.microsoft.azure.functions.*;
 import com.microsoft.azure.functions.annotation.AuthorizationLevel;
 import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class App {
+    private static final String MAIL_CONNECTION_STRING = System.getenv("mail-connection-string");
+
     @FunctionName("HttpExample")
     public HttpResponseMessage run(
             @HttpTrigger(
@@ -19,7 +25,7 @@ public class App {
                     authLevel = AuthorizationLevel.ANONYMOUS)
             HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
-        context.getLogger().info("Java HTTP trigger processed a request.");
+        context.getLogger().info("Mail connection string is present: " + (MAIL_CONNECTION_STRING != null));
 
         // Parse query parameter
         final String query = request.getQueryParameters().get("name");
@@ -28,7 +34,31 @@ public class App {
         if (name == null) {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please pass a nice name on the query string or in the request body").build();
         } else {
-            return request.createResponseBuilder(HttpStatus.OK).body("Hi, " + name).build();
+//            return request.createResponseBuilder(HttpStatus.OK).body("Hi, " + System.getenv("testprop")).build();
+            return request.createResponseBuilder(HttpStatus.OK).body("Hi, " + sendMail(name).getMessageId()).build();
         }
+    }
+
+    private SendEmailResult sendMail(String name) {
+        EmailClient emailClient = new EmailClientBuilder()
+                .connectionString(MAIL_CONNECTION_STRING)
+                .buildClient();
+
+        EmailContent content = new EmailContent("Welcome to Azure Communication Services Email")
+                .setPlainText("This email message is sent from Azure Communication Services Email using the Java SDK. My name is " + name);
+
+        EmailAddress emailAddress = new EmailAddress("kontakt@felix-bauer.at");
+        ArrayList<EmailAddress> addressList = new ArrayList<>();
+        addressList.add(emailAddress);
+
+        EmailRecipients emailRecipients = new EmailRecipients(addressList);
+
+
+        EmailMessage emailMessage = new EmailMessage(
+                "DoNotReply@3fb4a2ed-2bbd-41a5-926e-2aa4b9d02381.azurecomm.net",
+                content
+        ).setRecipients(emailRecipients);
+
+        return emailClient.send(emailMessage);
     }
 }
