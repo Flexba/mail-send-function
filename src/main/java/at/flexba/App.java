@@ -6,46 +6,88 @@ package at.flexba;
 import com.azure.communication.email.EmailClient;
 import com.azure.communication.email.EmailClientBuilder;
 import com.azure.communication.email.models.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.azure.functions.*;
 import com.microsoft.azure.functions.annotation.AuthorizationLevel;
 import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 
 public class App {
     private static final String MAIL_CONNECTION_STRING = System.getenv("mail-connection-string");
 
-    @FunctionName("HttpExample")
-    public HttpResponseMessage run(
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @FunctionName("contact-mail")
+    public HttpResponseMessage contactMail(
             @HttpTrigger(
-                    name = "req",
-                    methods = {HttpMethod.GET, HttpMethod.POST},
-                    authLevel = AuthorizationLevel.ANONYMOUS)
-            HttpRequestMessage<Optional<String>> request,
+                    name = "request",
+                    methods = {HttpMethod.POST, HttpMethod.OPTIONS},
+                    authLevel = AuthorizationLevel.ANONYMOUS) final HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
-        context.getLogger().info("Mail connection string is present: " + (MAIL_CONNECTION_STRING != null));
+        context.getLogger().fine("Azure Function 'contact-mail' is called with method " + request.getHttpMethod());
 
-        // Parse query parameter
-        final String query = request.getQueryParameters().get("name");
-        final String name = request.getBody().orElse(query);
-
-        if (name == null) {
-            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please pass a nice name on the query string or in the request body").build();
+        if(request.getHttpMethod() == HttpMethod.OPTIONS) {
+            return handleOptionsCall(request, context);
+        } else if(request.getHttpMethod() == HttpMethod.POST) {
+            return handlePostCall(request, context);
         } else {
-//            return request.createResponseBuilder(HttpStatus.OK).body("Hi, " + System.getenv("testprop")).build();
-            return request.createResponseBuilder(HttpStatus.OK).body("Hi, " + sendMail(name).getMessageId()).build();
+            context.getLogger().warning("No handler for HTTP Method");
+            return buildErrorResult(request, "Invalid Method", HttpStatus.BAD_REQUEST, context);
+        }
+
+    }
+
+    private HttpResponseMessage handleOptionsCall(HttpRequestMessage<Optional<String>> request, ExecutionContext context) {
+        context.getLogger().finer("Handling OPTIONS Call");
+
+        return request.createResponseBuilder(HttpStatus.OK)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "*")
+                .build();
+    }
+
+    private HttpResponseMessage handlePostCall(HttpRequestMessage<Optional<String>> request, ExecutionContext context) {
+        context.getLogger().finer("Handling POST Call");
+        context.getLogger().finest("Mail connection string is present: " + (MAIL_CONNECTION_STRING != null));
+
+        try {
+            MessageDto dto = getDto(request, context);
+            SendEmailResult result = sendMail(dto);
+
+            return request.createResponseBuilder(HttpStatus.OK)
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Headers", "*")
+                    .body(objectMapper.writeValueAsString(result))
+                    .build();
+        } catch (JsonProcessingException e) {
+            return buildErrorResult(request, "Request body was in the wrong format", HttpStatus.BAD_REQUEST, context);
+        } catch (Exception e) {
+            return buildErrorResult(request, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, context);
         }
     }
 
-    private SendEmailResult sendMail(String name) {
+    private MessageDto getDto(final HttpRequestMessage<Optional<String>> request,
+                              final ExecutionContext context) throws JsonProcessingException {
+        String body = request.getBody().orElse("");
+        context.getLogger().fine(String.format("Body of the post-request is: '%s'", body));
+
+        return objectMapper.readValue(body, MessageDto.class);
+    }
+
+    private SendEmailResult sendMail(MessageDto dto) {
         EmailClient emailClient = new EmailClientBuilder()
                 .connectionString(MAIL_CONNECTION_STRING)
                 .buildClient();
 
-        EmailContent content = new EmailContent("Welcome to Azure Communication Services Email")
-                .setPlainText("This email message is sent from Azure Communication Services Email using the Java SDK. My name is " + name);
+        EmailContent content = new EmailContent("Contact request via website")
+                .setPlainText(buildMailText(dto));
 
         EmailAddress emailAddress = new EmailAddress("kontakt@felix-bauer.at");
         ArrayList<EmailAddress> addressList = new ArrayList<>();
@@ -60,5 +102,54 @@ public class App {
         ).setRecipients(emailRecipients);
 
         return emailClient.send(emailMessage);
+    }
+
+    private String buildMailText(MessageDto dto) {
+        String newline = "\r\n";
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date now = new Date();
+
+        return "There is a new contact via the website." + newline +
+                "It was received on " + formatter.format(now) + newline +
+                "Name: " + dto.name + newline +
+                "E-Mail: " + dto.email + newline +
+                "Phone: " + dto.phone + newline +
+                "Text: " + newline +
+                dto.text;
+    }
+
+
+    private HttpResponseMessage buildErrorResult(final HttpRequestMessage<Optional<String>> request,
+                                                 final String message,
+                                                 final HttpStatus status,
+                                                 final ExecutionContext context) {
+        context.getLogger().info(String.format("Sending error with status %s to client: %s", status.name(), message));
+        ErrorDto dto = new ErrorDto(message);
+
+        try {
+            return request.createResponseBuilder(status)
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Headers", "*")
+                    .body(objectMapper.writeValueAsString(dto))
+                    .build();
+        } catch (JsonProcessingException e) {
+            context.getLogger().warning(String.format("Error building error message: %s", e.getMessage()));
+
+            return request.createResponseBuilder(status)
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Headers", "*")
+                    .body("{'error':'An error occurred'}")
+                    .build();
+        }
+
+    }
+
+    private record MessageDto(@JsonProperty(required = true) String name,
+                              @JsonProperty(required = true) String email,
+                              @JsonProperty(required = true) String phone,
+                              @JsonProperty(required = true) String text) {
+    }
+
+    private record ErrorDto(String error) {
     }
 }

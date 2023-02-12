@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20fefcbf-7b23-4e7f-b08f-fd1389bb0088" name="Changes" comment="">
+    <list default="true" id="20fefcbf-7b23-4e7f-b08f-fd1389bb0088" name="Changes" comment="Implement proper DTO">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/local.settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/at/flexba/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/flexba/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,34 +73,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/flexb/Documents/source/mail-send-function",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/flexb/Documents/source/mail-send-function&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "JSON"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;JSON&quot;
     ]
   }
-}]]></component>
+}</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\flexb\Documents\source\mail-send-function" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.mail-send-function [azureFunctionsPackage]">
+  <component name="RunManager" selected="Azure Functions.Run">
     <configuration name="Deploy" type="AZURE_FUNCTION_SUPPORT" factoryName="Deploy Functions">
       <FunctionDeployModel>
-        <option name="appSettingsHash" value="A964213B18AD01AA6E0CB4EE194BBF5C" />
+        <option name="appSettingsHash" value="E2E5D717BDB7B72BA64EF1E1A77C02EE" />
         <option name="appSettingsKey" value="9ae1b96a-e146-4d25-b216-60670844cd61" />
         <option name="deploymentStagingDirectoryPath" />
         <option name="functionAppConfig">
@@ -329,7 +335,9 @@
       <option name="presentableId" value="Default" />
       <updated>1675368806289</updated>
       <workItem from="1675368807493" duration="2302000" />
-      <workItem from="1675371144266" duration="5088000" />
+      <workItem from="1675371144266" duration="5658000" />
+      <workItem from="1675630515886" duration="3427000" />
+      <workItem from="1676230373712" duration="4809000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Code Commit">
       <created>1675371890416</created>
@@ -354,23 +362,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Code Commit" />
     <MESSAGE value="Fix Deployment" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix Deployment" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/at/flexba/App.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/at/flexba/App.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Use Mail Service Connection from KeyVault" />
+    <MESSAGE value="Implement proper DTO" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement proper DTO" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
